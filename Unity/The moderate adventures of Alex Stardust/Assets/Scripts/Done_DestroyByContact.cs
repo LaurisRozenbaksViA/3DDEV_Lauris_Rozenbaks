@@ -30,7 +30,7 @@ public class Done_DestroyByContact : MonoBehaviour
 
 		if (explosion != null)
 		{
-			Instantiate(explosion, transform.position, transform.rotation);
+            Instantiate(explosion, transform.position, explosion.transform.rotation);
 		}
 
 		if (other.tag == "Player")

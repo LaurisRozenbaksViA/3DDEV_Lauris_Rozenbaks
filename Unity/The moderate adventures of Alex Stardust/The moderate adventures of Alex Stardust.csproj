@@ -84,6 +84,7 @@
     <Compile Include="Assets\Scripts\Done_DestroyByTime.cs" />
     <Compile Include="Assets\Scripts\Done_EvasiveManeuver.cs" />
     <Compile Include="Assets\Scripts\Done_GameController.cs" />
+    <Compile Include="Assets\Scripts\Done_Menu_script.cs" />
     <Compile Include="Assets\Scripts\Done_Mover.cs" />
     <Compile Include="Assets\Scripts\Done_PlayerController.cs" />
     <Compile Include="Assets\Scripts\Done_RandomRotator.cs" />

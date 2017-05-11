@@ -16,7 +16,7 @@ public class Done_EvasiveManeuver : MonoBehaviour
 
 	void Start ()
 	{
-		currentSpeed = GetComponent<Rigidbody>().velocity.y;
+		currentSpeed = GetComponent<Rigidbody>().velocity.x;
 		StartCoroutine(Evade());
 	}
 	
@@ -25,7 +25,7 @@ public class Done_EvasiveManeuver : MonoBehaviour
 		yield return new WaitForSeconds (Random.Range (startWait.x, startWait.y));
 		while (true)
 		{
-			targetManeuver = Random.Range (1, dodge) * -Mathf.Sign (transform.position.y);
+			targetManeuver = Random.Range (1, dodge) * -Mathf.Sign (transform.position.z);
 			yield return new WaitForSeconds (Random.Range (maneuverTime.x, maneuverTime.y));
 			targetManeuver = 0;
 			yield return new WaitForSeconds (Random.Range (maneuverWait.x, maneuverWait.y));
@@ -34,8 +34,8 @@ public class Done_EvasiveManeuver : MonoBehaviour
 	
 	void FixedUpdate ()
 	{
-		float newManeuver = Mathf.MoveTowards (GetComponent<Rigidbody>().velocity.x, targetManeuver, smoothing * Time.deltaTime);
-		GetComponent<Rigidbody>().velocity = new Vector3 (newManeuver, 0.0f, currentSpeed);
+		float newManeuver = Mathf.MoveTowards (GetComponent<Rigidbody>().velocity.z, targetManeuver, smoothing * Time.deltaTime);
+		GetComponent<Rigidbody>().velocity = new Vector3 (currentSpeed, 0.0f, newManeuver);
 		GetComponent<Rigidbody>().position = new Vector3
 		(
 			Mathf.Clamp(GetComponent<Rigidbody>().position.x, boundary.xMin, boundary.xMax), 
@@ -43,6 +43,6 @@ public class Done_EvasiveManeuver : MonoBehaviour
 			Mathf.Clamp(GetComponent<Rigidbody>().position.z, boundary.zMin, boundary.zMax)
 		);
 		
-        GetComponent<Rigidbody>().rotation = Quaternion.Euler(GetComponent<Rigidbody>().velocity.z * +tilt, 0.0f, 0.0f);
+        GetComponent<Rigidbody>().rotation = Quaternion.Euler(GetComponent<Rigidbody>().velocity.x * +tilt, 0.0f, 0.0f);
     }
 }
