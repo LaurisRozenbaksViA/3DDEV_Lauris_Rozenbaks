@@ -23,7 +23,7 @@ public class Done_DestroyByContact : MonoBehaviour
 
 	void OnTriggerEnter (Collider other)
 	{
-		if (other.tag == "Boundary" || other.tag == "Enemy")
+		if (other.tag == "Boundary" || other.tag == "Enemy"|| other.tag == "Boss")
 		{
 			return;
 		}
@@ -33,10 +33,47 @@ public class Done_DestroyByContact : MonoBehaviour
             Instantiate(explosion, transform.position, explosion.transform.rotation);
 		}
 
-		if (other.tag == "Player")
+        if (this.tag == "Boss")
+        {
+
+                gameController.helthCounterBoss = gameController.helthCounterBoss - 1;
+                if (gameController.helthCounterBoss == 0)
+                {
+                    gameController.bossHelth.text = "";
+                    Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
+
+                }
+                else
+                {
+                    gameController.bossHelth.text = "";
+                    for (int i = 1; i <= gameController.helthCounterBoss; i++)
+                    {
+                        gameController.bossHelth.text = gameController.bossHelth.text + "E";
+                    }
+                    return;
+                }
+        }
+
+        if (other.tag == "Player")
 		{
-			Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
-			gameController.GameOver();
+            gameController.helthCounter = gameController.helthCounter - 1;
+            if (gameController.helthCounter == 0)
+            {
+                gameController.playerHelth.text = "";
+                Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
+                gameController.GameOver();
+            }
+            else
+            {
+                Destroy(gameObject);
+                    gameController.playerHelth.text = "";
+                    for (int i = 1; i <= gameController.helthCounter; i++)
+                    {
+                    gameController.playerHelth.text = gameController.playerHelth.text + "E";
+                    }
+                return;
+            }
+			
 		}
 		
 		gameController.AddScore(scoreValue);
